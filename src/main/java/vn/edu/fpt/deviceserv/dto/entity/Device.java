@@ -1,7 +1,9 @@
-package vn.edu.fpt.deviceserv.dto;
+package vn.edu.fpt.deviceserv.dto.entity;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -15,7 +17,9 @@ import java.util.List;
 public class Device {
     @Id
     private Long id;
-    private Long stationId;
+    @ManyToOne
+    @JoinColumn(name = "station_id", referencedColumnName = "id")
+    private Station station;
     private String name;
     private Integer addressBit;
     @Type(type = "json")

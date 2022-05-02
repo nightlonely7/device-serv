@@ -1,4 +1,4 @@
-package vn.edu.fpt.deviceserv.function.device;
+package vn.edu.fpt.deviceserv.function.devicedata;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
@@ -6,25 +6,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
-import vn.edu.fpt.deviceserv.dto.entity.Device;
-import vn.edu.fpt.deviceserv.service.DeviceService;
+import vn.edu.fpt.deviceserv.dto.entity.DeviceData;
+import vn.edu.fpt.deviceserv.service.DeviceDataService;
 
 import java.util.List;
 import java.util.function.Function;
 
 @Component
 @RequiredArgsConstructor
-public class ListDeviceFunction implements Function<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+public class ListDeviceDataFunction implements Function<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
     private final ObjectMapper objectMapper;
-    private final DeviceService deviceService;
+    private final DeviceDataService deviceDataService;
 
     @SneakyThrows
     @Override
     public APIGatewayProxyResponseEvent apply(APIGatewayProxyRequestEvent apiGatewayProxyRequestEvent) {
-        List<Device> deviceList = deviceService.listDevice();
-        System.out.println(deviceList);
+        String deviceId = apiGatewayProxyRequestEvent.getQueryStringParameters().get("deviceId");
+        List<DeviceData> deviceDataList = deviceDataService.listDeviceDataById(Long.parseLong(deviceId));
+        System.out.println(deviceDataList);
         return new APIGatewayProxyResponseEvent()
-                .withBody(objectMapper.writeValueAsString(deviceList))
+                .withBody(objectMapper.writeValueAsString(deviceDataList))
                 .withStatusCode(200);
     }
 }

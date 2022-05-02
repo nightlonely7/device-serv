@@ -1,4 +1,4 @@
-package vn.edu.fpt.deviceserv.dto;
+package vn.edu.fpt.deviceserv.dto.entity;
 
 import lombok.Data;
 

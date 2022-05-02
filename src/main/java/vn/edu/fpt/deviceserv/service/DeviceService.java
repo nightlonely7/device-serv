@@ -1,12 +1,12 @@
 package vn.edu.fpt.deviceserv.service;
 
-import vn.edu.fpt.deviceserv.dto.Device;
-import vn.edu.fpt.deviceserv.dto.DeviceData;
+import vn.edu.fpt.deviceserv.dto.entity.Device;
+import vn.edu.fpt.deviceserv.dto.entity.DeviceData;
+import vn.edu.fpt.deviceserv.dto.request.DeviceRequest;
 
 import java.util.List;
 
 public interface DeviceService {
-    void createDevice(Device device);
+    void createDevice(DeviceRequest deviceRequest);
     List<Device> listDevice();
-    void saveDeviceData(DeviceData deviceData);
 }

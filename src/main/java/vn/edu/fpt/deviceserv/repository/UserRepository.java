@@ -1,7 +1,7 @@
 package vn.edu.fpt.deviceserv.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import vn.edu.fpt.deviceserv.dto.User;
+import vn.edu.fpt.deviceserv.dto.entity.User;
 
 import java.util.Optional;
 
