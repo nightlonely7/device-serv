@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface DeviceDataRepository extends JpaRepository<DeviceData, Long> {
     @Query("select dd from DeviceData dd where dd.device = :device and (dd.label, dd.createdAt) in " +
-            "(select dd.label, max(dd.createdAt) from DeviceData dd groupBy dd.label)")
+            "(select dd.label, max(dd.createdAt) from DeviceData dd group by dd.label)")
     List<DeviceData> findFirstByDevice(@Param("device") Device device);
 }

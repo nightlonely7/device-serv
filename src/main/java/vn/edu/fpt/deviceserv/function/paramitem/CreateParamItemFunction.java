@@ -1,4 +1,4 @@
-package vn.edu.fpt.deviceserv.function.device;
+package vn.edu.fpt.deviceserv.function.paramitem;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
@@ -6,26 +6,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
-import vn.edu.fpt.deviceserv.dto.request.DeviceRequest;
-import vn.edu.fpt.deviceserv.service.DeviceService;
+import vn.edu.fpt.deviceserv.dto.entity.ParamItem;
+import vn.edu.fpt.deviceserv.service.ParamItemService;
 
 import java.util.function.Function;
 
 @Component
 @RequiredArgsConstructor
-public class CreateDeviceFunction implements Function<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+public class CreateParamItemFunction implements Function<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
     private final ObjectMapper objectMapper;
-    private final DeviceService deviceService;
+    private final ParamItemService paramItemService;
 
     @SneakyThrows
     @Override
     public APIGatewayProxyResponseEvent apply(APIGatewayProxyRequestEvent apiGatewayProxyRequestEvent) {
         System.out.println(apiGatewayProxyRequestEvent);
-        DeviceRequest deviceRequest = objectMapper.readValue(apiGatewayProxyRequestEvent.getBody(), DeviceRequest.class);
-        System.out.println(deviceRequest);
-        deviceService.createDevice(deviceRequest);
+        ParamItem paramItem = objectMapper.readValue(apiGatewayProxyRequestEvent.getBody(), ParamItem.class);
+        System.out.println(paramItem);
+        paramItemService.createParamItem(paramItem);
         return new APIGatewayProxyResponseEvent()
-                .withBody(objectMapper.writeValueAsString(deviceRequest))
+                .withBody(objectMapper.writeValueAsString(paramItem))
                 .withStatusCode(201);
     }
 }
